@@ -164,7 +164,7 @@ var depthlegend = L.control({position: 'topright'});
 	iconlegend.addTo(map);
 
 	window.addEventListener("orientationchange", function() {
-  	alert(window.orientation);
+  	setTimeout(function(){ map.invalidateSize(true)}, 400);
 	}, false);
 
 //function onLocationFound(e) {
