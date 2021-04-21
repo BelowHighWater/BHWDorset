@@ -74,7 +74,6 @@
 			} else if (DepthMarker > 18) {DepthMarker = "18";
 			} else if (DepthMarker > 0) {DepthMarker = "0";	
 			};
-			console.log(DepthMarker);
 			var SiteMark = new siteflag({iconUrl:'markers/' + DepthMarker + '/' + feature.properties.TYPE + '.png'});
 			return L.marker(latlng, {icon: SiteMark})
 			},
@@ -110,18 +109,14 @@ var Clusters = L.markerClusterGroup({maxClusterRadius:40, disableClusteringAtZoo
 
 Clusters.addLayer(DiveSites).addTo(map);
 
-	//map.addLayer(DiveSites);
-
 map.on('popupopen', function(e) {
 		MarkName = e.popup._source.feature.properties.NAME
 		MarkName = MarkName.split(" ").join("%20");
-		console.log(MarkName)
-		var box
 		document.getElementById("box").innerHTML = '<a href="#" class="lightbox" id="img1"><span style="background-image: url(data/pics/'+MarkName+'.jpg)"></span></a>'
 		})
 
 
-map.setView([50.6,-2.1],11);
+map.setView([50.6,-2.1],9);
 
 var baseMaps = {
     	"Street": Land,
@@ -134,7 +129,7 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-var depthlegend = L.control({position: 'bottomright'});
+var depthlegend = L.control({position: 'topright'});
 	depthlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML +=  '<div style="background-color:white; padding:5px;">' +
@@ -156,17 +151,21 @@ var depthlegend = L.control({position: 'bottomright'});
 	div.innerHTML +=  '<div style="background-color:white; padding:5px;">' +
 	'<strong><center> Dive Types </strong></center>' +
 	'<img src="markers/Wreck.png" style="width:30px;height:30px; vertical-align:middle;">   Wreck  ' +
-	'<img src="markers/Reef.png" style="width:30px;height:30px; vertical-align:middle;">   Reef  ' +
+	'<img src="markers/Reef.png" style="width:30px;height:30px; vertical-align:middle;">   Reef  	' +
 	'<img src="markers/Drift.png" style="width:30px;height:30px; vertical-align:middle;">   Drift  ' +
-	'<img src="markers/Structure.png" style="width:30px;height:30px; vertical-align:middle;">   Structure<br>' +
+	'<img src="markers/Structure.png" style="width:30px;height:30px; vertical-align:middle;">   Structure ' +
 	'<img src="markers/SHORE.png" style="width:30px;height:30px; vertical-align:middle;">   Shore Dive  ' +
 	'<img src="markers/PROTECT.png" style="width:30px;height:30px; vertical-align:middle;">   Protected  ' +
-	'<img src="markers/SNORKEL.png" style="width:30px;height:30px; vertical-align:middle;">   Skin Dive  '
+	'<img src="markers/SNORKEL.png" style="width:30px;height:30px; vertical-align:middle;">   Skin Dive '
 
 	return div;
 	};
 
 	iconlegend.addTo(map);
+
+	window.addEventListener("orientationchange", function() {
+  	alert(window.orientation);
+	}, false);
 
 //function onLocationFound(e) {
 	//	var radius = e.accuracy / 2;
