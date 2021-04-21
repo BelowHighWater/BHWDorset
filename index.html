@@ -134,6 +134,40 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+var depthlegend = L.control({position: 'bottomright'});
+	depthlegend.onAdd = function (map) {
+	var div = L.DomUtil.create('div', 'legend');
+	div.innerHTML +=  '<div style="background-color:white; padding:5px;">' +
+	'<strong><center> Max Depth </strong> </center>' +
+	'<img src="markers/10-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   0-18m<br>' +
+	'<img src="markers/20-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   18-30m<br>' +
+	'<img src="markers/30-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   30-40m<br>' +
+	'<img src="markers/40-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   40-50m<br>' +
+	'<img src="markers/50-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   50m +'
+
+	return div;
+	};
+
+	depthlegend.addTo(map);
+
+	var iconlegend = L.control({position: 'bottomleft'});
+	iconlegend.onAdd = function (map) {
+	var div = L.DomUtil.create('div', 'legend');
+	div.innerHTML +=  '<div style="background-color:white; padding:5px;">' +
+	'<strong><center> Dive Types </strong></center>' +
+	'<img src="markers/Wreck.png" style="width:30px;height:30px; vertical-align:middle;">   Wreck  ' +
+	'<img src="markers/Reef.png" style="width:30px;height:30px; vertical-align:middle;">   Reef  ' +
+	'<img src="markers/Drift.png" style="width:30px;height:30px; vertical-align:middle;">   Drift  ' +
+	'<img src="markers/Structure.png" style="width:30px;height:30px; vertical-align:middle;">   Structure<br>' +
+	'<img src="markers/SHORE.png" style="width:30px;height:30px; vertical-align:middle;">   Shore Dive  ' +
+	'<img src="markers/PROTECT.png" style="width:30px;height:30px; vertical-align:middle;">   Protected  ' +
+	'<img src="markers/SNORKEL.png" style="width:30px;height:30px; vertical-align:middle;">   Skin Dive  '
+
+	return div;
+	};
+
+	iconlegend.addTo(map);
+
 //function onLocationFound(e) {
 	//	var radius = e.accuracy / 2;
 
