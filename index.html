@@ -3,7 +3,7 @@
 <html>
 <head>
 	
-	<title>Mobile tutorial - Leaflet</title>
+	<title>Below High Water - Dorset Dives</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -21,9 +21,9 @@
 </head>
 <style>A {text-decoration: none;} </style>
 <body>
-<div id="box"></div>
-<div id='map'></div>
 
+<div id='map'></div>
+<div id="box" style="z-index:5;"></div>
 <script>
 
 //Base Maps from Open Street Map
@@ -79,7 +79,7 @@
 			},
 
 		onEachFeature: function (feature, layer) {
-		Site = '<a href="#img1"><h3>'+ feature.properties.NAME + '</h3>'
+		Site = '<a href="#img1" onclick="hideLegEnd()"><h3>'+ feature.properties.NAME + '</h3>'
 		LatDM = feature.geometry.coordinates[1];
 		LatD = Math.floor(Math.abs(LatDM))
 		LatM= +((Math.abs(LatDM)-LatD)*60).toFixed(3)
@@ -112,11 +112,11 @@ Clusters.addLayer(DiveSites).addTo(map);
 map.on('popupopen', function(e) {
 		MarkName = e.popup._source.feature.properties.NAME
 		MarkName = MarkName.split(" ").join("%20");
-		document.getElementById("box").innerHTML = '<a href="#" class="lightbox" id="img1"><span style="background-image: url(data/pics/'+MarkName+'.jpg)"></span></a>'
+		document.getElementById("box").innerHTML = '<a href="#" class="lightbox" id="img1" onclick="ShowLegend()"><span style="background-image: url(data/pics/'+MarkName+'.jpg);"></span></a>'
 		})
 
 
-map.setView([50.6,-2.1],9);
+map.setView([50.6,-2.1],9.5);
 
 var baseMaps = {
     	"Street": Land,
@@ -132,7 +132,7 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 var depthlegend = L.control({position: 'topright'});
 	depthlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML +=  '<div style="background-color:white; padding:5px;">' +
+	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 4%">' +
 	'<strong><center> Max Depth </strong> </center>' +
 	'<img src="markers/10-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   0-18m<br>' +
 	'<img src="markers/20-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   18-30m<br>' +
@@ -148,24 +148,39 @@ var depthlegend = L.control({position: 'topright'});
 	var iconlegend = L.control({position: 'bottomleft'});
 	iconlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML +=  '<div style="background-color:white; padding:5px;">' +
+	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
+	'<style> img {width:25px; height: 25px; padding: 2px; vertical-align:middle; horizontal-align:left; } </style>'+
 	'<strong><center> Dive Types </strong></center>' +
-	'<img src="markers/Wreck.png" style="width:30px;height:30px; vertical-align:middle;">   Wreck  ' +
-	'<img src="markers/Reef.png" style="width:30px;height:30px; vertical-align:middle;">   Reef  	' +
-	'<img src="markers/Drift.png" style="width:30px;height:30px; vertical-align:middle;">   Drift  ' +
-	'<img src="markers/Structure.png" style="width:30px;height:30px; vertical-align:middle;">   Structure ' +
-	'<img src="markers/SHORE.png" style="width:30px;height:30px; vertical-align:middle;">   Shore Dive  ' +
-	'<img src="markers/PROTECT.png" style="width:30px;height:30px; vertical-align:middle;">   Protected  ' +
-	'<img src="markers/SNORKEL.png" style="width:30px;height:30px; vertical-align:middle;">   Skin Dive '
-
+	'<div class = "row">' +
+	'<div class = "column">'+
+	'<img src="markers/Wreck.png"> Wreck<br>' +
+	'<img src="markers/Drift.png"> Drift<br>' +
+	'<img src="markers/Reef.png"> Reef<br>' +
+	'<img src="markers/Structure.png"> Structure</div>' +
+	'<div class = "column">'+
+	'<img src="markers/SNORKEL.png"> Skin Dive<br>' +
+	'<img src="markers/SHORE.png"> Shore Dive<br>' +
+	'<img src="markers/PROTECT.png"> Protected</div>'
+	
 	return div;
 	};
 
 	iconlegend.addTo(map);
 
+	function hideLegEnd() {
+  		map.removeControl(iconlegend);
+		map.removeControl(depthlegend)
+		}
+	function ShowLegend() {
+		iconlegend.addTo(map);
+		depthlegend.addTo(map);
+		}
+		
+
 	window.addEventListener("orientationchange", function() {
-  	setTimeout(function(){ map.invalidateSize(true)}, 400);
+  	setTimeout(function(){ map.invalidateSize()}, 400);
 	}, false);
+
 
 //function onLocationFound(e) {
 	//	var radius = e.accuracy / 2;
