@@ -146,11 +146,11 @@ depthlegend = L.control({position: 'topright'});
 
 	depthlegend.addTo(map);
 
-	var iconlegend = L.control({position: 'bottomleft'});
+	var iconlegend = L.control({position: 'topleft'});
 	iconlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
-	'<style> img {width:25px; height: 25px; padding: 2px; vertical-align:middle; horizontal-align:left; } </style>'+
+	'<style> img {width:25px; height: 25px; padding: 2px; vertical-align:middle; horizontal-align:middle; } </style>'+
 	'<a href="#keybox" onclick=LegendBox()><center> Click for Legend </center>'
 	
 	return div;
@@ -158,19 +158,18 @@ depthlegend = L.control({position: 'topright'});
 
 	function LegendBox() {
 	hideLegEnd();
-	document.getElementById("box").innerHTML = '<a href="#" class="lightbox" id="keybox" onclick="ShowLegend()">' +
-	'<style> p3 {font-size: 5vh; font-family: arial, sans-serif; color: white} </style>'+
-	'<p3 style="font-size: 7vh; font-weight: bold"><center> Dive Types </p3></center><br>' +
-	'<div class = "row">' +
-	'<div class = "column"><p3>'+
-	'<img class="imageType" src="markers/Wreck.png">Wreck<br>' +
-	'<img class="imageType" src="markers/Drift.png"> Drift<br>' +
-	'<img class="imageType" src="markers/Reef.png"> Reef<br>' +
-	'<img class="imageType" src="markers/Structure.png"> Structure</div>' +
-	'<div class = "column"><p3>'+
-	'<img class="imageType" src="markers/SNORKEL.png"> Skin Dive<br>' +
-	'<img class="imageType" src="markers/SHORE.png"> Shore Dive<br>' +
-	'<img class="imageType" src="markers/PROTECT.png"> Protected Site</p3></div>'
+	document.getElementById("box").innerHTML = 
+	'<a href="#" class="lightbox" id="keybox" onclick="ShowLegend()">' +
+	'<table style="width: 30%; margin-left:auto; margin-right:auto;">' +
+	'<tr><td colspan="2" style="text-align: center;"><p4> Dive Types </p4></td></tr>' +
+	'<tr><td><img class="imageType" src="markers/Wreck.png"></td><td><p3>Wreck<td></tr>' +
+	'<tr><td><img class="imageType" src="markers/Reef.png"></td><td><p3>Reef<td></tr>' +
+	'<tr><td><img class="imageType" src="markers/Drift.png"></td><td><p3>Drift<td></tr>' +
+	'<tr><td><img class="imageType" src="markers/Structure.png"></td><td><p3>Structure<td></tr>' +
+	'<tr><td><img class="imageType" src="markers/SHORE.png"></td><td><p3>Shore Dive<td></tr>' +
+	'<tr><td><img class="imageType" src="markers/SNORKEL.png"></td><td><p3>Skin Dive<td></tr>' +
+	'<tr><td><img class="imageType" src="markers/PROTECT.png"></td><td><p3>Protected Site<td></tr>'
+	
 	}
 
 	iconlegend.addTo(map);

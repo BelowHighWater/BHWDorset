@@ -98,7 +98,8 @@ a:hover {
 
 .lightbox {
   /* Default to hidden */
-  display: none;	
+  display: none;
+  align-items: center;	
 
   /* Overlay entire screen */
   position: fixed;
@@ -133,15 +134,36 @@ a:hover {
 }
 
 .imageType{
-	width:10vh; 
-	height: 10vh;
+	width:7vh; 
+	height: 7vh;
 	padding: 2vh;
-	vertical-align:middle;
-	horizontal-align:left;
+	vertical-align: middle;
+	horizontal-align: middle;
 	}
 .imageDepth{
 	width:3.4vh; 
 	height: 5.6vh;
 	vertical-align:middle;
-	horizontal-align:left;
+	horizontal-align:middle;
+	}
+
+p3 {
+	font-size: 3vh;
+	font-family: arial, sans-serif;
+	color: white;
+	text-align: center;
+	}
+
+
+p4 {
+	font-size: 5vh;
+	font-weight: bold;
+	font-family: arial, sans-serif;
+	color: white;
+	text-align: center;
+	}
+
+.KeyColumn {
+	column-count: 3
+	column-gap: 5vw
 	}
