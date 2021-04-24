@@ -129,17 +129,18 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-var depthlegend = L.control({position: 'topright'});
+depthlegend = L.control({position: 'topright'});
 	depthlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 4%">' +
-	'<strong><center> Max Depth </strong> </center>' +
-	'<img src="markers/10-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   0-18m<br>' +
-	'<img src="markers/20-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   18-30m<br>' +
-	'<img src="markers/30-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   30-40m<br>' +
-	'<img src="markers/40-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   40-50m<br>' +
-	'<img src="markers/50-marker.png" style="width:17px;height:-28px; vertical-align:middle;">   50m +'
-
+	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
+	'<strong><center> Dive Depths </strong></center>' +
+	'<div class = "row">' +
+	'<div class = "column">'+
+	'<img class="imageDepth" src="markers/10-marker.png"> 0-18m<br>' +
+	'<img class="imageDepth" src="markers/20-marker.png"> 18-30m<br>' +
+	'<img class="imageDepth" src="markers/30-marker.png"> 30-40m<br>' +
+	'<img class="imageDepth" src="markers/40-marker.png"> 40-50m<br>' +
+	'<img class="imageDepth" src="markers/50-marker.png"> 50m +</div>'
 	return div;
 	};
 
@@ -150,20 +151,27 @@ var depthlegend = L.control({position: 'topright'});
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
 	'<style> img {width:25px; height: 25px; padding: 2px; vertical-align:middle; horizontal-align:left; } </style>'+
-	'<strong><center> Dive Types </strong></center>' +
-	'<div class = "row">' +
-	'<div class = "column">'+
-	'<img src="markers/Wreck.png"> Wreck<br>' +
-	'<img src="markers/Drift.png"> Drift<br>' +
-	'<img src="markers/Reef.png"> Reef<br>' +
-	'<img src="markers/Structure.png"> Structure</div>' +
-	'<div class = "column">'+
-	'<img src="markers/SNORKEL.png"> Skin Dive<br>' +
-	'<img src="markers/SHORE.png"> Shore Dive<br>' +
-	'<img src="markers/PROTECT.png"> Protected</div>'
+	'<a href="#keybox" onclick=LegendBox()><center> Click for Legend </center>'
 	
 	return div;
 	};
+
+	function LegendBox() {
+	hideLegEnd();
+	document.getElementById("box").innerHTML = '<a href="#" class="lightbox" id="keybox" onclick="ShowLegend()">' +
+	'<style> p3 {font-size: 5vh; font-family: arial, sans-serif; color: white} </style>'+
+	'<p3 style="font-size: 7vh; font-weight: bold"><center> Dive Types </p3></center><br>' +
+	'<div class = "row">' +
+	'<div class = "column"><p3>'+
+	'<img class="imageType" src="markers/Wreck.png">Wreck<br>' +
+	'<img class="imageType" src="markers/Drift.png"> Drift<br>' +
+	'<img class="imageType" src="markers/Reef.png"> Reef<br>' +
+	'<img class="imageType" src="markers/Structure.png"> Structure</div>' +
+	'<div class = "column"><p3>'+
+	'<img class="imageType" src="markers/SNORKEL.png"> Skin Dive<br>' +
+	'<img class="imageType" src="markers/SHORE.png"> Shore Dive<br>' +
+	'<img class="imageType" src="markers/PROTECT.png"> Protected Site</p3></div>'
+	}
 
 	iconlegend.addTo(map);
 

@@ -112,7 +112,7 @@ a:hover {
   padding: 1em;
 
   /* Translucent background */
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Unhide the lightbox when it's the target */
@@ -131,3 +131,17 @@ a:hover {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.imageType{
+	width:10vh; 
+	height: 10vh;
+	padding: 2vh;
+	vertical-align:middle;
+	horizontal-align:left;
+	}
+.imageDepth{
+	width:3.4vh; 
+	height: 5.6vh;
+	vertical-align:middle;
+	horizontal-align:left;
+	}
