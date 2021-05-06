@@ -12,10 +12,16 @@
 	<link rel="stylesheet" href="css/MarkerCluster.css" />
 	<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
 	<link rel="stylesheet" href="css/tabs.css" />
+	<link rel="stylesheet" href="css/leaflet-search.min.css" />
+	<link rel="stylesheet" href="css/leaflet-search.src.css" />
+	<link rel="stylesheet" href="css/leaflet-search.mobile.src.css" />
+	<link rel="stylesheet" href="css/leaflet-search.mobile.min.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="markers/SNORKEL.png" />
 	<script src="js/leaflet.js"></script>
 	<script src="js/leaflet.markercluster.js"></script>
 	<script src="js/leaflet.markercluster-src.js"></script>
+	<script src="js/leaflet-search.min.js"></script>
+	<script src="js/leaflet-search.src.js"></script>
 	<script type="text/javascript" src="data/dorsetdives.geojson"></script>
  
 </head>
@@ -80,6 +86,7 @@
 
 		onEachFeature: function (feature, layer) {
 		Site = '<a href="#img1" onclick="hideLegEnd()"><h3>'+ feature.properties.NAME + '</h3>'
+		title = feature.properties.NAME;
 		LatDM = feature.geometry.coordinates[1];
 		LatD = Math.floor(Math.abs(LatDM))
 		LatM= +((Math.abs(LatDM)-LatD)*60).toFixed(3)
@@ -105,7 +112,7 @@
 		}
     		})
 
-var Clusters = L.markerClusterGroup({maxClusterRadius:40, disableClusteringAtZoom:15, spiderfyOnMaxZoom: true});
+var Clusters = L.markerClusterGroup({maxClusterRadius:50, disableClusteringAtZoom:20, spiderfyOnMaxZoom: true});
 
 Clusters.addLayer(DiveSites).addTo(map);
 
@@ -179,7 +186,18 @@ depthlegend = L.control({position: 'topright'});
 		iconlegend.addTo(map);
 		depthlegend.addTo(map);
 		}
+
+	var searchControl = new L.Control.Search({
+		layer: Clusters,
+		propertyName: 'NAME',
+		//marker: false,
+		moveToLocation: function(latlng, title, map) {
+			map.setView(latlng, 13); // access the zoom
+		}
+	});
 		
+
+	map.addControl(searchControl);
 
 	window.addEventListener("orientationchange", function() {
   	location.reload()
