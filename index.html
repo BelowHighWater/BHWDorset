@@ -123,7 +123,13 @@ map.on('popupopen', function(e) {
 		})
 
 
-map.setView([50.6,-2.1],9.5);
+var SW = L.latLng(50.4, -2.5)
+var NE = L.latLng(50.7, -1.7)
+DorsetBounds = L.latLngBounds(NE,SW);
+
+map.fitBounds([DorsetBounds]);
+
+//map.setView([50.6,-2.1],9.5);
 
 var baseMaps = {
     	"Street": Land,
@@ -192,7 +198,7 @@ depthlegend = L.control({position: 'topright'});
 		propertyName: 'NAME',
 		//marker: false,
 		moveToLocation: function(latlng, title, map) {
-			map.setView(latlng, 13); // access the zoom
+			map.setView(latlng, 15); // access the zoom
 		}
 	});
 		
