@@ -33,7 +33,20 @@
 <script>
 
 //Base Maps from Open Street Map
-	var map = L.map('map')
+
+//sets screen start point
+var SW = L.latLng(50.4, -2.9)
+var NE = L.latLng(50.8, -1.4)
+DorsetBounds = L.latLngBounds(NE,SW);
+
+var map = L.map('map', {
+	zoomControl: false,
+	maxBounds: DorsetBounds,
+ 	maxBoundsViscosity: 0.5
+})
+
+	
+map.fitBounds([DorsetBounds]);
 
 	Land = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		maxZoom: 15,
@@ -112,10 +125,13 @@
 		}
     		})
 
+//Clusters dive site markers for clarity
+
 var Clusters = L.markerClusterGroup({maxClusterRadius:50, disableClusteringAtZoom:20, spiderfyOnMaxZoom: true});
 
 Clusters.addLayer(DiveSites).addTo(map);
 
+//defines lightbox content for site pictures
 map.on('popupopen', function(e) {
 		MarkName = e.popup._source.feature.properties.NAME
 		MarkName = MarkName.split(" ").join("%20");
@@ -123,11 +139,6 @@ map.on('popupopen', function(e) {
 		})
 
 
-var SW = L.latLng(50.4, -2.5)
-var NE = L.latLng(50.7, -1.7)
-DorsetBounds = L.latLngBounds(NE,SW);
-
-map.fitBounds([DorsetBounds]);
 
 //map.setView([50.6,-2.1],9.5);
 
@@ -142,29 +153,30 @@ var overlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-depthlegend = L.control({position: 'topright'});
-	depthlegend.onAdd = function (map) {
-	var div = L.DomUtil.create('div', 'legend');
-	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
-	'<strong><center> Dive Depths </strong></center>' +
-	'<div class = "row">' +
-	'<div class = "column">'+
-	'<img class="imageDepth" src="markers/10-marker.png"> 0-18m<br>' +
-	'<img class="imageDepth" src="markers/20-marker.png"> 18-30m<br>' +
-	'<img class="imageDepth" src="markers/30-marker.png"> 30-40m<br>' +
-	'<img class="imageDepth" src="markers/40-marker.png"> 40-50m<br>' +
-	'<img class="imageDepth" src="markers/50-marker.png"> 50m +</div>'
-	return div;
-	};
+//depthlegend = L.control({position: 'topright'});
+//	depthlegend.onAdd = function (map) {
+//	var div = L.DomUtil.create('div', 'legend');
+//	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
+//	'<strong><center> Dive Depths </strong></center>' +
+//	'<div class = "row">' +
+//	'<div class = "column">'+
+//	'<img class="imageDepth" src="markers/10-marker.png"> 0-18m<br>' +
+//	'<img class="imageDepth" src="markers/20-marker.png"> 18-30m<br>' +
+//	'<img class="imageDepth" src="markers/30-marker.png"> 30-40m<br>' +
+//	'<img class="imageDepth" src="markers/40-marker.png"> 40-50m<br>' +
+//	'<img class="imageDepth" src="markers/50-marker.png"> 50m +</div>'
+//	return div;
+//	};
 
-	depthlegend.addTo(map);
+//	depthlegend.addTo(map);
+
 
 	var iconlegend = L.control({position: 'topleft'});
 	iconlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
-	'<style> img {width:25px; height: 25px; padding: 2px; vertical-align:middle; horizontal-align:middle; } </style>'+
-	'<a href="#keybox" onclick=LegendBox()><center> Click for Legend </center>'
+	'<style> img {width:30px; height: 30px; padding: 2px; vertical-align:middle; horizontal-align:middle; } </style>'+
+	'<a href="#keybox" onclick=LegendBox()><center> Legend </center>'
 	
 	return div;
 	};
@@ -178,19 +190,23 @@ depthlegend = L.control({position: 'topright'});
 	'<tr height="10%"><td><img class="imageType" src="markers/Wreck.png"></td><td><p3>Wreck</td><td><img class="imageType" src="markers/SHORE.png"></td><td><p3>Shore Dive<td></tr>' +
 	'<tr height="10%"><td><img class="imageType" src="markers/Reef.png"></td><td><p3>Reef</td><td><img class="imageType" src="markers/SNORKEL.png"></td><td><p3>Skin Dive<td></tr>' +
 	'<tr height="10%"><td><img class="imageType" src="markers/Drift.png"></td><td><p3>Drift</td><td><img class="imageType" src="markers/PROTECT.png"></td><td><p3>Protected Site<td></tr>' +
-	'<tr height="10%"><td><img class="imageType" src="markers/Structure.png"></td><td><p3>Structure<td></tr>'
-	
+	'<tr height="10%"><td><img class="imageType" src="markers/Structure.png"></td><td><p3>Structure<td></tr>' +
+
+	'<table style="width: 50%; margin-left:auto; margin-right:auto;">' +
+	'<tr height="10%"><td colspan="8" style="text-align: center;"><p4> Dive Depths </p4></td></tr>' +
+	'<tr height="20%"><td><img class="imageDepth" src="markers/10-marker.png"></td><td><p3>0 - 18m</td><td><img class="imageDepth" src="markers/20-marker.png"></td><td><p3>18-30m<td></td><td><img class="imageDepth" src="markers/30-marker.png"></td><td><p3>30-40m<td></tr>' +
+	'<tr height="20%"><td><img class="imageDepth" src="markers/40-marker.png"></td><td><p3>40 - 50m</td><td><img class="imageDepth" src="markers/50-marker.png"></td><td><p3>50m +</td></tr>'
 	}
 //
 	iconlegend.addTo(map);
 
 	function hideLegEnd() {
   		map.removeControl(iconlegend);
-		map.removeControl(depthlegend)
+		//map.removeControl(depthlegend)
 		}
 	function ShowLegend() {
 		iconlegend.addTo(map);
-		depthlegend.addTo(map);
+		//depthlegend.addTo(map);
 		}
 
 	var searchControl = new L.Control.Search({
