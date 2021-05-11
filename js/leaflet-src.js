@@ -13798,10 +13798,10 @@
 
   			this._simulateEvent('mouseup', first);
 
-  			// simulate click if the touch didn't move too much
-  			if (this._isTapValid()) {
-  				this._simulateEvent('click', first);
-  			}
+  			// Jonno simulate click if the touch didn't move too much
+  			//if (this._isTapValid()) {
+  			//	this._simulateEvent('click', first);
+  			//}
   		}
   	},
 
