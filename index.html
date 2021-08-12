@@ -127,7 +127,7 @@ map.fitBounds([DorsetBounds]);
 
 //Clusters dive site markers for clarity
 
-var Clusters = L.markerClusterGroup({maxClusterRadius:50, disableClusteringAtZoom:20, spiderfyOnMaxZoom: true});
+var Clusters = L.markerClusterGroup({maxClusterRadius:50, disableClusteringAtZoom:15, spiderfyOnMaxZoom: true});
 
 Clusters.addLayer(DiveSites).addTo(map);
 
