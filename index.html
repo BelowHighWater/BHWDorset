@@ -297,7 +297,7 @@ map.fitBounds([DorsetBounds]);
 						'<table class="infobx">' +
 						'<tr>' +
 							'<td style="width:35px" class="story" rowspan=2>' + Type + 
-							'<td class="title" colspan=2>' + Site + '</td>' +
+							'<td class="title" colspan=3>' + Site + '</td>' +
 						
 						'</tr>'+
 						'<tr>' +
@@ -308,8 +308,8 @@ map.fitBounds([DorsetBounds]);
 							'<td class="story" colspan=4>'+Details+'</td>'+
 						'</tr>'+
 						'<tr>'+
-							'<td class="geoloc" colspan=2>'+Tidal+Shore+Snork+Protect+'</td>'+
-							'<td class="depth" >Depth<span class="bigger">'+Depth+'M</span></td>' +
+							'<td class="geoloc" colspan=3>'+Tidal+Shore+Snork+Protect+'</td>'+
+							'<td class="depth" >Depth<span class="bigger">'+Depth+'m</span></td>' +
 						'</tr>'+
 						'</table>'+
 						'</a>'
@@ -319,6 +319,10 @@ map.fitBounds([DorsetBounds]);
 		Snork = '<img class="Mdiveicon" src="markers/SNORKEL.png" title="Can be snorkelled" align = "left">'
 		Protect = '<img class="Mdiveicon" src="markers/PROTECT.png" title="Protected site" align = "left">'
 		Tidal = '<img class="Mdiveicon" src="markers/TIDE.png" title="Tide restricted" align = "left">'
+		if (feature.properties.SHORE !== 'Y') {Shore = ""}
+		if (feature.properties.SNORKEL !== 'Y') {Snork = ""}
+		if (feature.properties.PROTECTED !== 'Y') {Protect = ""}
+		if (feature.properties.TIDAL !== 'Y') {Tidal = ""}
 		var Boxtable
 		= '<a href="#img1" onclick="hideLegEnd()">' +
 						'<table class="infobx">' +
@@ -335,8 +339,8 @@ map.fitBounds([DorsetBounds]);
 							'<td class="Mstory" colspan=4>'+Details+'</td>'+
 						'</tr>'+
 						'<tr>'+
-							'<td class="Mgeoloc" colspan=2>'+Tidal+Shore+Snork+Protect+'</td>'+
-							'<td class="Mdepth" >Depth<span class="Mbigger">'+Depth+'M</span></td>' +
+							'<td class="Mgeoloc" colspan=3>'+Tidal+Shore+Snork+Protect+'</td>'+
+							'<td class="Mdepth" >Depth<span class="Mbigger">'+Depth+'m</span></td>' +
 						'</tr>'+
 						'</table>'+
 						'</a>'
