@@ -237,6 +237,25 @@ map.fitBounds([DorsetBounds]);
 						'</tr>'+
 						'</table>'+
 						'</a>'
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		var Boxtable
+		= '<a href="#img1" onclick="hideLegEnd()">' +
+						'<table class="infobx">' +
+						'<tr>' +
+							'<td style="width:35px" class="story" rowspan=2>' + Type + 
+							'<td class="title" colspan=2>' + Site + '</td>' +
+						
+						'</tr>'+
+						'<tr>' +
+							'<td class="geoloc" colspan=3>' + LatDM +'&#39N,&nbsp'+ LonDM + '&#39W' + '</td>' +
+							'<td></td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td class="story" colspan=4>'+Details+'</td>'+
+						'</tr>'+
+						'</table>'+
+						'</a>'
+		}
 		
 		layer.bindPopup(Boxtable)
 		}
