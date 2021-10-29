@@ -464,18 +464,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
 /* popup */
 
 .leaflet-popup {
-	width: 280px;
+	//width: 280px;
 	position: absolute;
 	margin-bottom: 5px;
 	}
 .leaflet-popup-content-wrapper {
 	padding: 1px;
-	width:280px;
+	//width:280px;
 	border-radius: 5px;
 	}
 .leaflet-popup-content {
 	margin: 5px 5px;
-	width: 280px;
+	//width: 280px;
 	line-height: 1.2;
 	}
 .leaflet-popup-content p {

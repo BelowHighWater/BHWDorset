@@ -26,7 +26,176 @@
 	
  
 </head>
-<style>A {text-decoration: none;} </style>
+<style>
+a {text-decoration: none;}
+
+.infobx {
+		width:250px;
+		border-width: 1px;
+		border-collapse:collapse;
+		border-spacing:0;
+		border-color: #00000000;
+		border-style:solid;
+		}
+		
+		
+.title {
+		border-width: 1px;
+		font-family: 'Trebuchet MS', sans-serif;
+		font-size:16pt;
+		color: blue;
+		font-weight:bold;
+		overflow:hidden;
+		padding:1px 1px;
+		word-break:normal;
+		text-align:left;
+		vertical-align:bottom;
+		}
+		
+.geoloc {
+		border-width: 1px;
+		border-color: black;
+		font-family:Courier, sans-serif;
+		font-size:14px;
+		color: black;
+		font-weight:bold;
+		overflow:hidden;
+		padding:2px 1px;
+		word-break:normal;
+		text-align:left;
+		vertical-align:middle;
+		}
+.depth {
+		font-family:'Trebuchet', sans-serif;
+		font-size:14px;
+		color: blue;
+		font-weight:bold;
+		overflow:hidden;
+		padding:1px 1px;
+		word-break:normal;
+		text-align:right;
+		vertical-align:middle;
+		}
+.story {	
+		font-family:'Arial', sans-serif;
+		font-size:14px;
+		color: black;
+		font-weight:normal;
+		overflow:hidden;
+		padding:10px 1px 10px 1px;
+		word-break:normal;
+		word-wrap: normal;
+		text-align:left;
+		vertical-align:middle;
+		}
+.bigger {	
+		font-family:'Courier', sans-serif;
+		font-size:26px;
+		font-weight:bold;
+		color: black;
+		overflow:hidden;
+		padding:7px 5px;
+		word-break:normal;
+		text-align:right;
+		vertical-align:middle;
+		//background-color: black;
+		}
+.diveicon {
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+		text-align: right;
+		display:inline-block;
+		}
+.icoBox {
+		display:inline-block;
+		word-wrap:nowrap;
+		white-space:nowrap;
+		vertical-align: middle;
+		text-align: left;
+		display:inline-block;
+		}
+
+.Mtitle {
+		border-width: 1px;
+		font-family: 'Trebuchet MS', sans-serif;
+		font-size:14pt;
+		color: blue;
+		font-weight:bold;
+		overflow:hidden;
+		padding:1px 1px;
+		word-break:normal;
+		text-align:left;
+		vertical-align:bottom;
+		}
+		
+.Mgeoloc {
+		border-width: 1px;
+		border-color: black;
+		font-family:Courier, sans-serif;
+		font-size:12px;
+		color: black;
+		font-weight:bold;
+		overflow:hidden;
+		padding:2px 1px;
+		word-break:normal;
+		text-align:left;
+		vertical-align:middle;
+		}
+.Mdepth {
+		font-family:'Trebuchet', sans-serif;
+		font-size:12px;
+		color: blue;
+		font-weight:bold;
+		overflow:hidden;
+		padding:1px 1px;
+		word-break:normal;
+		text-align:right;
+		vertical-align:middle;
+		}
+.Mstory {	
+		font-family:'Arial', sans-serif;
+		font-size:12px;
+		color: black;
+		font-weight:normal;
+		overflow:hidden;
+		padding:10px 1px 10px 1px;
+		word-break:normal;
+		word-wrap: normal;
+		text-align:left;
+		vertical-align:middle;
+		}
+.Mbigger {	
+		font-family:'Courier', sans-serif;
+		font-size:20px;
+		font-weight:bold;
+		color: black;
+		overflow:hidden;
+		padding:3px 2px;
+		word-break:normal;
+		text-align:right;
+		vertical-align:middle;
+		//background-color: black;
+		}
+.Mdiveicon {
+		width: 25px;
+		height: 25px;
+		vertical-align: middle;
+		text-align: right;
+		display:inline-block;
+		}
+.MicoBox {
+		display:inline-block;
+		word-wrap:nowrap;
+		white-space:nowrap;
+		vertical-align: middle;
+		text-align: left;
+		display:inline-block;
+		}
+
+
+
+</style>
 <body>
 
 <div id='map'></div>
@@ -98,9 +267,8 @@ map.fitBounds([DorsetBounds]);
 			return L.marker(latlng, {icon: SiteMark})
 			},
 
-		onEachFeature: function (feature, layer) {
-		Site = '<a href="#img1" onclick="hideLegEnd()"><h3>'+ feature.properties.NAME + '</h3>'
-		title = feature.properties.NAME;
+		onEachFeature: function (feature, layer) {	
+		Site = feature.properties.NAME;
 		LatDM = feature.geometry.coordinates[1];
 		LatD = Math.floor(Math.abs(LatDM))
 		LatM= +((Math.abs(LatDM)-LatD)*60).toFixed(3)
@@ -110,18 +278,75 @@ map.fitBounds([DorsetBounds]);
 		LonD = Math.floor(Math.abs(LonDM))
 		LonM= +((Math.abs(LonDM)-LonD)*60).toFixed(3)
 		LonDM = '00'+ LonD + '&deg' + LonM
+		
+		
 
-		Type = '<img src="markers/' + feature.properties.TYPE + '.png" align = "right" title="' + feature.properties.TYPE + '" style="width:27px;height:27px; vertical-align:middle;">'
-		Shore = '<img src="markers/SHORE.png" title="Shore Dive" align = "right" style="width:27px;height:27px; vertical-align:middle;">'
-		Snork = '<img src="markers/SNORKEL.png" title="Can be snorkelled" align = "right" style="width:27px;height:27px; vertical-align:middle;">'
-		Protect = '<img src="markers/PROTECT.png" title="Protected Site" align = "right" style="width:27px;height:27px; vertical-align:top;">'
-		Details = '<b> WGS84: </b>	' + LatDM +'&#39N,&nbsp'+ LonDM + '&#39W' +
-			  '<p style="color:black">' + feature.properties.Description + '</p></a>' 
+		Type = '<img class="diveicon" src="markers/' + feature.properties.TYPE + '.png" align = "left" title="' + feature.properties.TYPE + '">'
+		Shore = '<img class="diveicon" src="markers/SHORE.png" title="Shore dive" align = "left">'
+		Snork = '<img class="diveicon" src="markers/SNORKEL.png" title="Can be snorkelled" align = "left">'
+		Protect = '<img class="diveicon" src="markers/PROTECT.png" title="Protected site" align = "left">'
+		Tidal = '<img class="diveicon" src="markers/TIDE.png" title="Tide restricted" align = "left">'
+		Details = feature.properties.Description;
+		Depth = feature.properties.MAXDEPTH;
 		if (feature.properties.SHORE !== 'Y') {Shore = ""}
 		if (feature.properties.SNORKEL !== 'Y') {Snork = ""}
 		if (feature.properties.PROTECTED !== 'Y') {Protect = ""}
-		var content = Site + Details + '<b> Depth: </b> ' + feature.properties.MAXDEPTH + 'm' + Type + Protect + Shore + Snork
-		layer.bindPopup(content)
+		if (feature.properties.TIDAL !== 'Y') {Tidal = ""}
+		
+		var Boxtable = '<a href="#img1" onclick="hideLegEnd()">' +
+						'<table class="infobx">' +
+						'<tr>' +
+							'<td style="width:35px" class="story" rowspan=2>' + Type + 
+							'<td class="title" colspan=3>' + Site + '</td>' +
+						
+						'</tr>'+
+						'<tr>' +
+							'<td class="geoloc" colspan=3>' + LatDM +'&#39N,&nbsp'+ LonDM + '&#39W' + '</td>' +
+							'<td></td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td class="story" colspan=4>'+Details+'</td>'+
+						'</tr>'+
+						'<tr>'+
+							'<td class="geoloc" colspan=3>'+Tidal+Shore+Snork+Protect+'</td>'+
+							'<td class="depth" >Depth<span class="bigger">'+Depth+'m</span></td>' +
+						'</tr>'+
+						'</table>'+
+						'</a>'
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		Type = '<img class="Mdiveicon" src="markers/' + feature.properties.TYPE + '.png" align = "left" title="' + feature.properties.TYPE + '">'
+		Shore = '<img class="Mdiveicon" src="markers/SHORE.png" title="Shore dive" align = "left">'
+		Snork = '<img class="Mdiveicon" src="markers/SNORKEL.png" title="Can be snorkelled" align = "left">'
+		Protect = '<img class="Mdiveicon" src="markers/PROTECT.png" title="Protected site" align = "left">'
+		Tidal = '<img class="Mdiveicon" src="markers/TIDE.png" title="Tide restricted" align = "left">'
+		if (feature.properties.SHORE !== 'Y') {Shore = ""}
+		if (feature.properties.SNORKEL !== 'Y') {Snork = ""}
+		if (feature.properties.PROTECTED !== 'Y') {Protect = ""}
+		if (feature.properties.TIDAL !== 'Y') {Tidal = ""}
+		var Boxtable
+		= '<a href="#img1" onclick="hideLegEnd()">' +
+						'<table class="infobx">' +
+						'<tr>' +
+							'<td style="width:35px" class="Mstory" rowspan=2>' + Type + 
+							'<td class="Mtitle" colspan=2>' + Site + '</td>' +
+						
+						'</tr>'+
+						'<tr>' +
+							'<td class="Mgeoloc" colspan=3>' + LatDM +'&#39N,&nbsp'+ LonDM + '&#39W' + '</td>' +
+							'<td></td>' +
+						'</tr>' +
+						'<tr>' +
+							'<td class="Mstory" colspan=4>'+Details+'</td>'+
+						'</tr>'+
+						'<tr>'+
+							'<td class="Mgeoloc" colspan=3>'+Tidal+Shore+Snork+Protect+'</td>'+
+							'<td class="Mdepth" >Depth<span class="Mbigger">'+Depth+'m</span></td>' +
+						'</tr>'+
+						'</table>'+
+						'</a>'
+		}
+		
+		layer.bindPopup(Boxtable)
 		}
     		})
 
