@@ -23,6 +23,7 @@
 	<script src="js/leaflet-search.min.js"></script>
 	<script src="js/leaflet-search.src.js"></script>
 	<script type="text/javascript" src="data/diving.geojson"></script>
+	<!--<script type="text/javascript" src="data/contour.geojson"></script>-->
 	
  
 </head>
@@ -458,6 +459,21 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 	//map.on('locationerror', onLocationError);
 
 	//map.locate({setView: true, maxZoom: 16});
+
+		//function bcpcolor(feature) {
+    	//	return {
+    //    	fillColor: 'purple',
+     //  	 	weight: 3,
+      //  	opacity: 1,
+      //  	color: 'white',  //Outline color
+      // 		fillOpacity: 0.2
+    //		};
+	//	}
+
+	//	var BCPborder = new L.GeoJSON(contourlines,{style: bcpcolor});
+//		var Borders = L.layerGroup([BCPborder]);
+//		Borders.addTo(map)
+
 
 </script>
 </body>
