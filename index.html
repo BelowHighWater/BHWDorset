@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="css/leaflet-search.src.css" />
 	<link rel="stylesheet" href="css/leaflet-search.mobile.src.css" />
 	<link rel="stylesheet" href="css/leaflet-search.mobile.min.css" />
-	<link rel="shortcut icon" type="image/x-icon" href="markers/SNORKEL.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="images/LogoRound200.png" />
 	<script src="js/leaflet.js"></script>
 	<script src="js/leaflet.markercluster.js"></script>
 	<script src="js/leaflet.markercluster-src.js"></script>
@@ -57,6 +57,19 @@ text-decoration: none;
 		vertical-align:bottom;
 		}
 		
+.maptitle {
+		border-width: 0px;
+		font-family: 'Trebuchet MS', sans-serif;
+		font-size:16pt;
+		color: black;
+		font-weight:bold;
+		overflow:hidden;
+		padding:0px 0px;
+		word-break:normal;
+		text-align:left;
+		vertical-align:top;
+		}
+		
 .geoloc {
 		border-width: 1px;
 		border-color: black;
@@ -94,8 +107,8 @@ text-decoration: none;
 		//background-color: black;
 		}
 .diveicon {
-		width: 40px;
-		height: 40px;
+		width: 30px;
+		height: 30px;
 		vertical-align: middle;
 		text-align: right;
 		display:inline-block;
@@ -160,25 +173,29 @@ text-decoration: none;
 
 .PicOverLay {
 		text-align:left;
-		background-color: #00000044;
-		font-size: 1.5em;
+		font-size: 1.8em;
 		font-style: normal;
-		text-shadow: 0px 0px 5px black;
+		animation-name: StoryText;
+		animation-duration: 3s;
+		animation-fill-mode: forwards;
 		font-family:'Arial',sans-serif;
-		color:white;
 		position: relative;
 		padding-left: 15%;
 		padding-right: 15%;
-		top: 15%;
+		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		}
 
+@keyframes StoryText {
+  0%   {background-color:#00000000; color:#FFFFFF00; text-shadow: 0px 0px 5px #00000000;}
+  100%   {background-color:#00000050; color:#FFFFFFFF; text-shadow: 0px 0px 5px #000000FF;}
+  
 
 </style>
-<body>
 
-<div id='map'></div>
+<body>
+<div id='map'><img style="z-index:15;" class="Mdiveicon" src="markers/SHORE.png" title="Shore dive" align = "left"></div>
 <div id="box" style="z-index:5;"></div>
 <script>
 
@@ -209,6 +226,8 @@ map.fitBounds([DorsetBounds]);
 //Google Satellite maps
 
 	Satellite = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+		maxZoom: 15,
+		minZoom: 9,
 		attribution: '&copy; <a href="https://about.google/brand-resource-center/products-and-services/geo-guidelines/#required-attribution">Google </a> contributors'
 	}),
 
@@ -223,12 +242,12 @@ map.fitBounds([DorsetBounds]);
 //Marker template
 	siteflag = L.Icon.extend({
 		options: {
-    		iconSize:     [34, 56],
+    	iconSize:     [34, 56],
 		iconAnchor:   [17, 56],
 		shadowUrl: 'markers/icon-shadow.png',
-    		shadowSize:   [34, 56],
-    		shadowAnchor: [7, 41],  
-    		popupAnchor:  [0, -58]
+    	shadowSize:   [34, 56],
+    	shadowAnchor: [7, 41],  
+    	popupAnchor:  [0, -58]
 		}
 	});
 
@@ -324,7 +343,23 @@ map.fitBounds([DorsetBounds]);
 
 //Clusters dive site markers for clarity
 
-var Clusters = L.markerClusterGroup({maxClusterRadius:50, disableClusteringAtZoom:15, spiderfyOnMaxZoom: true});
+var Clusters = L.markerClusterGroup({maxClusterRadius:40, disableClusteringAtZoom:15, spiderfyOnMaxZoom: true});
+
+//L.Control.textbox = L.Control.extend({
+	//	onAdd: function(map) {
+			
+//		var text = L.DomUtil.create('div');
+//		text.id = "info_text";
+//		text.innerHTML = "<p style=\"color:black; font-size:25px;\">Dorset Dives</p>"
+//		return text;
+//		},
+
+//		onRemove: function(map) {
+			// Nothing to do here
+		//}
+	//});
+//	L.control.textbox = function(opts) { return new L.Control.textbox(opts);}
+//	L.control.textbox({ position: 'topleft' }).addTo(map);
 
 Clusters.addLayer(DiveSites).addTo(map);
 
@@ -343,17 +378,18 @@ map.on('popupopen', function(e) {
 //map.setView([50.6,-2.1],9.5);
 
 var baseMaps = {
-    	"Street": Land,
+    "Street": Land,
 	"Satellite": Satellite
 	};
 
 var overlayMaps = {
 	"DORIS": DORIS
 	};
+	
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-	var iconlegend = L.control({position: 'topleft'});
+	var iconlegend = L.control({position: 'topright'});
 	iconlegend.onAdd = function (map) {
 	var div = L.DomUtil.create('div', 'legend');
 	div.innerHTML +=  '<div style="background-color:white; padding:5px; border-radius: 7%">' +
@@ -383,6 +419,31 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 //
 	iconlegend.addTo(map);
 
+	L.Control.Watermark = L.Control.extend({
+    onAdd: function(map) {
+        var img = L.DomUtil.create('img');
+
+        img.src = 'images/LogoRecBlk200.png';
+        img.style.width = '150px';
+		img.style.height = '59px';
+
+        return img;
+    },
+
+    onRemove: function(map) {
+        // Nothing to do here
+    }
+});
+
+L.control.watermark = function(opts) {
+    return new L.Control.Watermark(opts);
+}
+
+
+
+L.control.watermark({ position: 'topleft' }).addTo(map);
+
+
 	function hideLegEnd() {
   		map.removeControl(iconlegend);
 		//map.removeControl(depthlegend)
@@ -394,6 +455,7 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 	var searchControl = new L.Control.Search({
 		layer: Clusters,
+		position: 'topright',
 		propertyName: 'NAME',
 		//marker: false,
 		moveToLocation: function(latlng, title, map) {
@@ -408,6 +470,8 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
   	location.reload()
 	console.log("Switched")
 	}, false);
+
+
 
 
 //function onLocationFound(e) {
