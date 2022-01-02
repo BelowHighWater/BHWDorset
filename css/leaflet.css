@@ -464,7 +464,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 /* popup */
 
 .leaflet-popup {
-	//width: 280px;
+	//width: 200px;
 	position: absolute;
 	margin-bottom: 5px;
 	}
