@@ -255,16 +255,6 @@ map.fitBounds([DorsetBounds]);
 		attribution: '&copy; <a href="https://about.google/brand-resource-center/products-and-services/geo-guidelines/#required-attribution">Google </a> contributors'
 	}),
 
-//greyscale map
-	
-	tilesGrey = L.tileLayer('https://maps.omniscale.net/v2/{id}/style.grayscale/{z}/{x}/{y}.png', {
-				id: 'mapsosc-b667cf5a',
-				maxZoom: 15,
-				minZoom: 9,
-				attribution: '&copy; 2021 &middot; <a href="https://maps.omniscale.com/">Omniscale</a> ' +
-            '&middot; Map data: <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-			}),
-
 
 //DORIS seabed map for Dorset
 	DORIS = L.tileLayer('https://doris.s3.amazonaws.com/newallbathy/{z}/{x}/{y}.png', {
@@ -419,7 +409,6 @@ map.on('popupopen', function(e) {
 
 var baseMaps = {
     "Street": Land,
-	"Greyscale": tilesGrey,
 	"Satellite": Satellite
 	};
 
@@ -517,6 +506,9 @@ L.control.watermark({ position: 'topleft' }).addTo(map);
 	console.log("Switched")
 	}, false);
 
+map.on('click', function(e) {
+    alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+});
 
 
 
