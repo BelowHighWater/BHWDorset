@@ -22,7 +22,7 @@
 	<script src="js/leaflet.markercluster-src.js"></script>
 	<script src="js/leaflet-search.min.js"></script>
 	<script src="js/leaflet-search.src.js"></script>
-	<script type="text/javascript" src="data/diving.geojson"></script>
+	<script type="text/javascript" src="data/DiveSites.geojson"></script>
 	<!--<script type="text/javascript" src="data/contour.geojson"></script>-->
 	
  
@@ -368,7 +368,7 @@ map.fitBounds([DorsetBounds]);
 
 //Clusters dive site markers for clarity
 
-var Clusters = L.markerClusterGroup({maxClusterRadius:40, disableClusteringAtZoom:15, spiderfyOnMaxZoom: true});
+var Clusters = L.markerClusterGroup({maxClusterRadius:50, disableClusteringAtZoom:12, spiderfyOnMaxZoom: true});
 
 //L.Control.textbox = L.Control.extend({
 	//	onAdd: function(map) {
@@ -453,9 +453,9 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
     onAdd: function(map) {
         var img = L.DomUtil.create('img');
 
-        img.src = 'images/LogoRecBlk200.png';
-        img.style.width = '200px';
-		img.style.height = '78px';
+        img.src = 'images/LogoRound200.png';
+        img.style.width = '150px';
+		img.style.height = '150px';
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 		img.src = 'images/LogoRound200.png';
         img.style.width = '75px';
